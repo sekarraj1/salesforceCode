@@ -40,4 +40,60 @@ public with sharing class ContactTriggerHandler {
       }
 
     }
+
+  /*
+  When a contact is inserted on an account, check if the account has existing opportunities.
+  If so, update the accounts description with total opportunity amount.if not, create a new opportunity.
+  */
+  public static void updateOppAmountOnAccountWhenContactIsCreated(List<Contact> contLst){
+
+    Set<id> accIds = new Set<id>();
+    List<Account> accToBeUpdated = new List<Account>();
+    List<Opportunity> oppToBeCreate = new List<Opportunity>();
+    Map<Id,Decimal> oppAmountMap = New Map<Id,Decimal>();
+    if(!contLst.isEmpty()){
+      for(Contact con:contLst){
+        accIds.add(con.AccountId);
+      }
+    }
+    if(!accIds.isEmpty()){
+      List<Opportunity> oppList = [SELECT id,name,amount FROM Opportunity WHERE AccountId IN: accIds];
+      if(!oppList.isEmpty()){
+        Decimal totalAmount = 0;
+        Id accountId;
+        for(Opportunity opp:oppList){
+          accountId = opp.Id;
+          totalAmount += opp.Amount;
+        }
+        oppAmountMap.put(accountId,totalAmount);
+      }
+      
+      if(oppList.isEmpty()){
+        // create Opportunity
+       Opportunity newOpp = new Opportunity();
+       newOpp.Name = 'test';
+       newOpp.AccountId = oppList[0].AccountId;
+       oppToBeCreate.add(newOpp);
+      }
+      
+      if(!oppAmountMap.isEmpty()){
+        for(Id accIdFromOpp:oppAmountMap.keySet()){
+          Account accUpdate = new Account(Id=accIdFromOpp);
+          accUpdate.Description = 'Total Opportunity Amount' + oppAmountMap.get(accIdFromOpp);
+          accToBeUpdated.add(accUpdate);
+        }
+
+      }
+      if(!accToBeUpdated.isEmpty()){
+        update accToBeUpdated;
+      }
+      if(!oppToBeCreate.isEmpty()){
+        insert oppToBeCreate;
+      }
+      
+
+    }
+    
+
+  }
 }
