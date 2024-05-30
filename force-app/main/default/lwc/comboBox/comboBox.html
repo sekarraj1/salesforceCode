@@ -1,0 +1,80 @@
+<template>
+    <!--Header-->
+    <template lwc:if={label}>
+      <label class="slds-form-element__label">{label}</label>
+    </template>
+    <div class="slds-combobox_container">
+      <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open"
+			aria-expanded="true"
+			aria-haspopup="listbox"
+			role="combobox">
+      <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right addBlock" role="none">
+          <template lwc:if={isSearchStringEmpty}>
+            <lightning-input
+                      placeholder={placeHolderText}
+                      read-only="true"
+                      value={selectedLabel}
+                      autocomplete="off"
+                      tabindex="-1"
+                      variant="label-hidden"
+                      id="combobox-id-1"
+                      onclick={showOptions}
+                      data-id="combobox-id-1"
+                      required={isRequired}
+                    ></lightning-input>
+                    <template if:false={isValid}>
+                      <span class="red-text">{requiredFieldMsg}</span>
+                    </template>
+          </template>
+          <template lwc:elseif={isSearchStringEmpty}>
+            <lightning-input
+              placeholder={placeholderText}
+              read-only="true"
+              value={selectedLabel}
+              autocomplete="off"
+              tabindex="-1"
+              variant="label-hidden"
+            ></lightning-input>
+          </template>
+          <template if:true={showDropdown}>
+            <button
+              class="slds-button slds-button_icon slds-input__icon slds-input__icon_right"
+              title={HideOptions}
+              onclick={blurEvent}
+            >
+              <svg class="slds-button__icon" aria-hidden="true">
+                <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#up"></use>
+              </svg>
+              <span class="slds-assistive-text">{HideOptions}</span>
+            </button>
+          </template>
+          <template if:false={showDropdown}>
+            <template if:false={isSearchStringEmpty}>
+              <button
+                class="slds-button slds-button_icon slds-input__icon slds-input__icon_right"
+                title={RemoveSelectedOption}
+                onclick={handleRemoveSelected}
+              >
+                <svg class="slds-button__icon" aria-hidden="true">
+                  <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+                </svg>
+                <span class="slds-assistive-text">{RemoveSelectedOption}</span>
+              </button>
+            </template>
+            <template if:true={isSearchStringEmpty}>
+              <button
+                class="slds-button slds-button_icon slds-input__icon slds-input__icon_right"
+                title={ShowOptions}
+                onclick={showOptions}
+              >
+                <svg class="slds-button__icon" aria-hidden="true">
+                  <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+                </svg>
+                <span class="slds-assistive-text">{ShowOptions}</span>
+              </button>
+            </template>
+          </template>
+      </div>
+      </div>
+    </div>
+</template>

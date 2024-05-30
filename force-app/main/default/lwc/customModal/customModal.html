@@ -1,0 +1,61 @@
+<template>
+	<section
+		role="dialog"
+		tabindex="-1"
+		class={modalClasses}
+		aria-labelledby="modal-heading-01"
+		aria-modal="true"
+		aria-describedby="modal-content-id-1"
+		style={sectionHeight}
+	>
+		<div class="slds-modal__container" style={modalWidthValue}>
+			<header class={headerClass}>
+				<template if:false={hideCloseButton}>
+					<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+						<lightning-icon
+							icon-name="utility:close"
+							alternative-text={closelLabel}
+							variant="inverse"
+							size="small"
+							onclick={clickHandlerForCloseRequest}
+						>
+						</lightning-icon>
+						<span class="slds-assistive-text">{closelLabel}</span>
+					</button>
+				</template>
+				<p class={headerStyle}>{modalHeader}</p>
+				<p class={subHeaderStyle}>{modalSubHeader}</p>
+			</header>
+			<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1" style={modalBodyClass}>
+				<slot></slot>
+			</div>
+			<template if:false={hideFooter}>
+				<footer class="slds-modal__footer">
+					<template if:false={hideCancelButton}>
+						<lightning-button
+							variant={closeButtonVariant}
+							label={closelLabel}
+							onclick={clickHandlerForCloseRequest}
+							class="slds-m-left_x-small"
+              icon-name={iconClose}
+						>
+						</lightning-button>
+					</template>
+					<template if:false={hideSaveButton}>
+						<lightning-button
+							variant={saveButtonVariant}
+							label={saveLabel}
+							name={saveName}
+							onclick={clickHandlerForSaveRequest}
+              icon-name={iconName}
+							class="slds-m-left_x-small"
+							disabled={disableModalUpdate}
+						>
+						</lightning-button>
+					</template>
+				</footer>
+			</template>
+		</div>
+	</section>
+	<div class="slds-backdrop slds-backdrop_open"></div>
+</template>

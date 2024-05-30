@@ -1,0 +1,53 @@
+<template>
+  <!-- <div if:true={showSpinner}>
+    <lightning-spinner alternative-text="Loading" size="xx-small"></lightning-spinner>
+</div> -->
+  <div style="height: 300px;" if:true={checkDataLength}>
+      <lightning-datatable
+              key-field="id"
+              data={sprintData}
+              show-row-number-column
+              row-number-offset={rowOffset}
+              suppress-bottom-bar
+              columns={columns}
+              hide-checkbox-column
+              onrowaction={handleRowAction}>
+      </lightning-datatable>
+  </div>
+  <div>
+    <c-custom-modal
+    if:true={showModal}
+    close-linkname='close'
+		save-linkname='save'
+		modal-header='Update tasks'
+		closel-label='close'
+		save-label='save'
+		onclose={closeModalHandler}
+		modal-width="200"
+		onsave={updateAccount}>
+    <div if:true={checkRecordId}>
+      <lightning-record-edit-form
+        record-id={recordId}
+        object-api-name="Sprint_tasks__c"
+        onsubmit={handleSubmit}
+        onsuccess={handleSuccess}
+    >
+        <lightning-messages> </lightning-messages>
+        <lightning-output-field field-name="Contact__c">
+        </lightning-output-field>
+        <lightning-input-field field-name="Task_Description__c" formats={formats}></lightning-input-field>
+        <lightning-input-field field-name="Leave_Date_if_any__c"> </lightning-input-field>
+        <lightning-input-field field-name="Is_TimeSheet_filled__c"> </lightning-input-field>
+        <lightning-button
+            class="slds-m-top_small"
+            variant="brand"
+            type="submit"
+            name="update"
+            label="Update"
+        >
+        </lightning-button>
+    </lightning-record-edit-form>
+    </div>
+    </c-custom-modal>
+  </div>
+</template>

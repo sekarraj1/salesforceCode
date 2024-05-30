@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+      <target>lightning__FlowScreen</target>
+      <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+            <property name="picklistLabels" type="String[]" label="Picklist Labels" role="inputOnly" required="true" />
+            <property name="picklistValues" type="String[]" label="Picklist Values" role="inputOnly" required="true" />
+            <property name="selectedValue" type="String" label="Default Selected Value" role="inputOnly" />
+            <property name="label" type="String" label="Field Label" role="inputOnly" />
+            <property name="iconName" type="String" label="Icon to Display" role="inputOnly" />
+            <property name="selectedPicklist" type="String" label="Selected Picklist" role="outputOnly" />
+    </targetConfigs>
+</LightningComponentBundle>
