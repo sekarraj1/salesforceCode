@@ -13,3 +13,4 @@
 6. When a contact is inserted on an account, check if the account has existing opportunities. If so, update the account description with the total opportunity amount. if not, create a new opportunity. **(ContactTriggerHandler.updateOppAmountOnAccountWhenContactIsCreated)**
 
 7. Write a apex trigger that updates the accounts description with opportunity name that has the highest amount.
+**(OpportunityTriggerHandler.UpdateAccountWithOpportunityName)**

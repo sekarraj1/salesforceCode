@@ -27,6 +27,38 @@ public with sharing class OpportunityTriggerHandler {
         }
 
       }
+    }
 
+    /*
+    Write a apex trigger that updates the accounts description with opportunity name that has the highest amount.
+    */
+    public static void UpdateAccountWithOpportunityName(List<Opportunity> oppList,Map<Id,Opportunity> oppMap){
+      Set<Id> accIds = new Set<Id>();
+      List<Account> accListToUpdate = new List<Account>();
+      if(oppList !=null && !oppList.isEmpty()){
+        for(Opportunity opp:oppList){
+          accIds.add(opp.AccountId);
+        }
+      }
+      if(oppMap != null && !oppMap.isEmpty()){
+        for(Opportunity opp:oppMap.values()){
+          accIds.add(opp.AccountId);
+        }
+      }
+      if(!accIds.isEmpty()){
+        List<Account> accList = [SELECT id,Name,Description, 
+                                (SELECT id,Name,Amount FROM Opportunities ORDER BY Amount DESC) 
+                                FROM Account WHERE Id IN:accIds];
+        for(Account a:accList){
+          if(a.Opportunities.size() > 0){
+            Account acc = new Account(Id=a.Id);
+            acc.Description = a.Opportunities[0].Name;
+            accListToUpdate.add(acc);
+          }
+        }
+        if(!accListToUpdate.isEmpty()){
+          update accListToUpdate;
+        }
+      }
     }
 }
