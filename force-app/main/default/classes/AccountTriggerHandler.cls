@@ -82,7 +82,35 @@ public with sharing class AccountTriggerHandler {
         }
 
       }
+    }
 
+    /*
+    Write an apex trigger to update the related contacts with the latest country field value
+    whenever it changes on the parent account record.
+    */
+    public static void updateRelatedContacts(List<Account> newAcc,Map<Id,Account> oldAcc) {
+      Map<Id,String> accIdMap = new Map<Id,String>();
+      List<Contact> contactsToBeUpdated = new List<Contact>();
+      if(!newAcc.isEmpty()){
+        for(Account acc:newAcc){
+          if(acc.Country__c != null && acc.Country__c != oldAcc.get(acc.Id).Country__c){
+            accIdMap.put(acc.Id,acc.Country__c);
+          }
+        }
+      }
+      if(!accIdMap.isEmpty()){
+        for(Contact con:[SELECT id,Name,Account_Country__c,AccountId FROM Contact
+                        WHERE AccountId IN : accIdMap.keySet()]){
+            if(accIdMap.get(con.AccountId) != con.Account_Country__c){
+              Contact conUpdate = new Contact(Id=con.Id);
+              conUpdate.Account_Country__c = accIdMap.get(con.AccountId);
+              contactsToBeUpdated.add(conUpdate);
+            }
+        }
+      }
+      if(!contactsToBeUpdated.isEmpty()){
+        update contactsToBeUpdated;
+      }
 
     }
 }

@@ -15,3 +15,6 @@
 
 7. Write a apex trigger that updates the accounts description with opportunity name that has the highest amount.
 **(OpportunityTriggerHandler.UpdateAccountWithOpportunityName)**
+
+8.Write an apex trigger to update the related contacts with the latest country field value whenever it changes on the parent account record. **(AccountTriggerHandler.updateRelatedContacts)**
+
