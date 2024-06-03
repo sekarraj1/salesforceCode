@@ -9,7 +9,7 @@
 
 4. Write a trigger to create the contacts based on the user input on the number of contacts field in the Account object and throw an error if the user tries to make more than 10 contacts for the account **(AccountTriggerHandler.createContacts)**
 
-5. Write a trigger that automates the linking of candidate and skill records. It should read skills listed in a text area field on the candidate, match them with existing skills, and connect them using a junction object called candidate skill also if a skill doesn’t then create the skill before establishing the connection. **(CandidateSkillLinkHandler.linkSkillWithCandidate)**
+5. Write a trigger that automatically links candidate and skill records. It should read skills listed in a text area field on the candidate, match them with existing skills, and connect them using a junction object called candidate skill also if a skill doesn’t then create the skill before establishing the connection. **(CandidateSkillLinkHandler.linkSkillWithCandidate)**
 
 6. When a contact is inserted on an account, check if the account has existing opportunities. If so, update the account description with the total opportunity amount. if not, create a new opportunity. **(ContactTriggerHandler.updateOppAmountOnAccountWhenContactIsCreated)**
 
