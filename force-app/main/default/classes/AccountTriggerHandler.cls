@@ -51,7 +51,6 @@ public with sharing class AccountTriggerHandler {
         }
 
       }
-
     }
 
     /*
@@ -110,6 +109,38 @@ public with sharing class AccountTriggerHandler {
       }
       if(!contactsToBeUpdated.isEmpty()){
         update contactsToBeUpdated;
+      }
+    }
+
+    /*
+    Write an apex trigger to create a related contact 
+    whenever the create contact checkbox is checked on account update or Insert.
+    */
+    public static void createContactBasedOnCheckbox(List<Account> newAcc,Map<Id,Account> oldAcc){
+      Account oldAccObj = new Account();
+      Set<Id> accId = new Set<Id>();
+      List<Contact> contList = new List<Contact>();
+      if(!newAcc.isEmpty()){
+        for(Account acc:newAcc){
+          if(oldAcc != null){
+            oldAccObj = oldAcc.get(acc.Id);
+          }
+          if(acc.Create_Contact__c && (oldAccObj == null || oldAccObj.Create_Contact__c == false)){
+            accId.add(acc.id);
+          }
+        }
+      }
+      if(!accId.isEmpty()){
+        for(Id accKeyId:accId){
+          Contact con = new Contact();
+          con.LastName = 'Test Acc';
+          con.AccountId = accKeyId;
+          contList.add(con);
+        }
+        if(!contList.isEmpty()){
+          insert contList;
+        }
+        
       }
 
     }

@@ -3,7 +3,7 @@ trigger CaseTrigger on Case (before insert,after insert,after update) {
     CaseTriggerhandler.linkContactToCase(Trigger.New);
   }
   if(Trigger.isAfter && (Trigger.isInsert || Trigger.isUpdate)){
-    CaseTriggerhandler.createTask(Trigger.New,Trigger.oldMap);
+    CaseTriggerhandler.createTask(Trigger.New, Trigger.oldMap);
   }
   
 }

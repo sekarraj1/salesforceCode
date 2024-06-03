@@ -76,7 +76,7 @@ public with sharing class CaseTriggerhandler {
             if(cs.Create_Task__c && contsMap.containsKey(cs.AccountId)){
                 Task newTask = new Task();
                 newTask.Subject =  'Follow Up task';
-                newTask.WhoId = contsMap.containsKey(cs.AccountId);
+               // newTask.WhoId = contsMap.containsKey(cs.AccountId);
                 newTask.Status = 'Not Started';
                 taskList.add(newTask);
             }
