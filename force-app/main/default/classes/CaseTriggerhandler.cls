@@ -44,6 +44,50 @@ public with sharing class CaseTriggerhandler {
         }
 
       }
+    }
+
+    /*
+    Whenever create task checkbox is selected in the case, create a follow up task and 
+    automatically assign it to the Primary contact of the case account.
+    */
+    public static void createTask(List<Case> newCase, Map<Id,Case> oldCaseMap){
+      Set<Id> accIds = new Set<Id>();
+      Map<Id,Id> contsMap = new Map<Id,Id>();
+      List<Task> taskList =  new List<Task>();
+      Case oldCase = new Case();
+      if(!newCase.isEmpty()){
+        for(Case cs:newCase){
+          if(oldCaseMap != null){
+            oldCase = oldCaseMap.get(cs.Id);
+          }
+          if((oldCase == null || oldCase.oldCase ==false) && cs.AccountId !=null && cs.Create_Task__c){
+            accIds.add(cs.AccountId);
+          }
+        }
+      }
+      if(!accIds.isEmpty()){
+        List<Contact> contList = [SELECT id,Name,Primary_Contact__c FROM Contact
+                                  WHERE AccountId IN:accIds and Primary_Contact__c = true LIMIT 1];
+        if(!contList.isEmpty()){
+          for(Contact con:contList){
+            contsMap.put(con.AccountId,con.Id);
+          }
+          for(Case cs:newCase){
+            if(cs.Create_Task__c && contsMap.containsKey(cs.AccountId)){
+                Task newTask = new Task();
+                newTask.Subject =  'Follow Up task';
+                newTask.WhoId = contsMap.containsKey(cs.AccountId);
+                newTask.Status = 'Not Started';
+                taskList.add(newTask);
+            }
+          }
+          if(!taskList.isEmpty()){
+            insert taskList;
+          }
+        }
+
+      }
 
     }
+
 }

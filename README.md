@@ -20,4 +20,6 @@
 
 9. Write an apex trigger to link case to contact based on the supplied email.If the supplied email matches an existing contacts email the case should get linked to that contact otherwise a new contact shoud get crated and linked to that case.**(CaseTriggerhandler.linkContactToCase)**
 
+10. Whenever create task checkbox is selected in the case, create a follow up task and automatically assign it to the Primary contact of the case account.**(CaseTriggerhandler.createTask)**
+
 
