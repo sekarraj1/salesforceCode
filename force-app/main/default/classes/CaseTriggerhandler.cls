@@ -60,7 +60,7 @@ public with sharing class CaseTriggerhandler {
           if(oldCaseMap != null){
             oldCase = oldCaseMap.get(cs.Id);
           }
-          if((oldCase == null || oldCase.oldCase ==false) && cs.AccountId !=null && cs.Create_Task__c){
+          if((oldCase == null || oldCase.Create_Task__c ==false) && cs.AccountId !=null && cs.Create_Task__c){
             accIds.add(cs.AccountId);
           }
         }

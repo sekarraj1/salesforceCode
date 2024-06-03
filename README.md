@@ -22,4 +22,6 @@
 
 10. Whenever create task checkbox is selected in the case, create a follow up task and automatically assign it to the Primary contact of the case account.**(CaseTriggerhandler.createTask)**
 
+11. Write an apex trigger to create a related contact whenever the create contact checkbox is checked on account update or Insert.
+
 
