@@ -24,4 +24,11 @@
 
 11. Write an apex trigger to create a related contact whenever the create contact checkbox is checked on account update or Insert  **(AccountTriggerHandler.createContactBasedOnCheckbox)**
 
+12. Write a trigger to find top most parent from lower most account, If account has self look up and Account records has 10 levels of parent account **(AccountTriggerHandler.findTopMostParent)**
+
+13. Write a trigger on prevent account from deletion if account having more than 2 contacts 
+**(AccountTriggerHandler.validationCheckBeforeDelete)**
+
+14. 
+
 

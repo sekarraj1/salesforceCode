@@ -142,6 +142,56 @@ public with sharing class AccountTriggerHandler {
         }
         
       }
+    }
 
+    /*
+    Write a trigger on prevent account from deletion if account having more than 2 contacts.
+    */
+    public static void validationCheckBeforeDelete(List<Account> accList){
+      if(!accList.isEmpty()){
+        for(Account acc:[SELECT id,Name,(Select id from Contacts) From Account
+                        Where Id In:accList]){
+            if(acc.Contacts.size() > 2){
+              acc.addError('You can not delete this account sinxe it has more than 2 contacts');
+            }
+        }
+      }
+    }
+
+    /*
+    Write a trigger to find top most parent from lower most account,
+    If account has self look up and Account records has 10 levels of parent account.
+    */
+    public static void findTopMostParent(List<Account> newAccList){
+      
+      if(!newAccList.isEmpty()){
+        for(Account acc:newAccList){
+          String topMostAccount = getParentAccountId(acc.Id);
+        }
+      }
+    }
+
+    public static String getParentAccountId(String accId){
+      Account accObj = [SELECT Id,ParentId FROM Account WHERE id =:accId];
+      if(accObj.ParentId == null){
+        return accObj.Id;
+      }
+      if(accObj.ParentId == accObj.Id){
+        return accObj.Id;
+      }
+      return getParentAccountId(accObj.ParentId);
+    }
+
+    public static Integer getParentAccountCount(String accId){
+      Integer currentCount =0;
+      Account accObj = [SELECT Id,ParentId FROM Account WHERE id =:accId];
+      if(accObj.ParentId == null){
+        return currentCount;
+      } 
+      if(accObj.ParentId != null){
+        currentCount ++;
+        getParentAccountCount(accObj.ParentId);
+      }
+      return currentCount;
     }
 }
