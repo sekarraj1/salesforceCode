@@ -32,3 +32,13 @@
 14. 
 
 
+---------------------------------------------------------------------------------------------------------------------
+
+**Salesforce Integrations**
+
+---------------------------------------------------------------------------------------------------------------------
+
+1.  Write a callout apex class and parse the response using Map in salesforce 
+**(CalloutWithPublicUrl.getPublicInformation)**
+
+
