@@ -1,6 +1,8 @@
-**Apex trigger scenarios**
-------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------
 
+**Apex trigger scenarios**
+
+---------------------------------------------------------------------------------------------------------------------
 1. Write a trigger to identify the most recent contact when inserted for each account mark its  New_Contact__c field as checked and ensure that the New_Contact__c field is unchecked for the other contacts related to the same account  **(ContactTriggerHandler.updateRecentContacts)**
 
 2. Whenever the opportunity is created and updated with the amount > 10000, send an email to the owner **(OpportunityTriggerHandler.SendEmailWhenOpportunityCU)**
@@ -39,6 +41,6 @@
 ---------------------------------------------------------------------------------------------------------------------
 
 1.  Write a callout apex class and parse the response using Map in salesforce 
-**(CalloutWithPublicUrl.getPublicInformation)**
+    **(CalloutWithPublicUrl.getPublicInformation)**
 
 
