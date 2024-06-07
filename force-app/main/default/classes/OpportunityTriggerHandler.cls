@@ -61,4 +61,12 @@ public with sharing class OpportunityTriggerHandler {
         }
       }
     }
+
+    /*
+    Whenever the opportunity type gets updated then insert a new opportunityContactRole according to the opportunity type.Delete the existing Opportunity
+    ContactRole and If there is no contact present of the same type as the opportunity then show an error
+    */
+    public static void createOpportunityContactRole(List<Opportunity> oppList,Map<Id,Opportunity> oldOppMap){
+
+    }
 }

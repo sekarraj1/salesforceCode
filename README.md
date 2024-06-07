@@ -31,7 +31,10 @@
 13. Write a trigger on prevent account from deletion if account having more than 2 contacts 
 **(AccountTriggerHandler.validationCheckBeforeDelete)**
 
-14. 
+14. Whenever the opportunity type gets updated then insert a new opportunityContactRole according to the opportunity type.Delete the existing OpportunityContactRole and If there is no contact present of the same type as the opportunity then show an error.
+
+15. Write an apex trigger to prevent deactivation of account with active contacts on it 
+**(AccountTriggerHandler.activeAccountValidation)**
 
 
 ---------------------------------------------------------------------------------------------------------------------
@@ -41,6 +44,9 @@
 ---------------------------------------------------------------------------------------------------------------------
 
 1.  Write a callout apex class and parse the response using Map in salesforce 
-    **(CalloutWithPublicUrl.getPublicInformation)**
+    **(CalloutWithPublicUrl.getPublicInformationUsingMap)**
+
+2.  Write a callout apex class and parse the response using Wrapper class in salesforce 
+    **(CalloutWithPublicUrl.getPublicInformationUsingWrapperClass)**
 
 

@@ -194,4 +194,24 @@ public with sharing class AccountTriggerHandler {
       }
       return currentCount;
     }
+
+    /*
+    Write an apex trigger to prevent deactivation of account with active contacts on it. 
+    */
+    public static void activeAccountValidation(Map<Id,Account> newAccMap,Map<Id,Account> oldAccMap){
+      Set<Id> accIds = new Set<Id>();
+      if(!newAccMap.isEmpty()){
+        for(Contact con:[SELECT id,Name,AccountId FROM Contact
+                        WHERE AccountId IN:newAccMap.keySet() and isActive__c = True]){
+              accIds.add(con.AccountId);
+        }
+        for(Account acc:newAccMap.values()){
+          if(oldAccMap.get(acc.Id).Status__c == 'Active'){
+            if(acc.Status__c == 'Inactive' && accIds.contains(acc.Id)){
+              acc.addError('Cannot inactivate the account since it has active contacts');
+            }
+          }
+        }
+      }
+    }
 }
