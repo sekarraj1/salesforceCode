@@ -96,4 +96,44 @@ public with sharing class ContactTriggerHandler {
     
 
   }
+
+  /*
+    Create a Rollup-Summary trigger in Salesforce - Update the number contacts on the account object
+  */
+  public static void updateNumberOfContactsOnAccount(List<Contact> newCont,
+                                                    Map<Id,Contact> oldMapContact,List<Contact> oldContact){
+
+    set<Id> accIds = new Set<Id>();
+    List<Account> accountsTobeUpdated = new List<Account>();
+    if( newCont != null){
+      for(Contact con: newCont){
+        accIds.add(con.AccountId);
+      }
+    }
+    if( oldContact != null){
+      for(Contact con: oldContact){
+        accIds.add(con.AccountId);
+      }
+    }
+    if(oldMapContact != null && newCont !=null){
+      for(Contact con: newCont){
+        if(con.AccountId != oldContact.get(con.AccountId).AccountId){
+          accIds.add(con.AccountId);
+        }
+      }
+    }
+    List<AggregateResult> allContacts = [SELECT count(Id)cnt,AccountId From Contact Where AccountId IN:accIds
+                                        Group by AccountId];
+    for(AggregateResult ca:allContacts){
+      String accId = (String)ca.get('AccountId');
+      Integer totalContact = (Integer)ca.get('cnt');
+      Account updateAccount = new Account(Id=accId);
+      updateAccount.No_of_Contacts__c = totalContact;
+      accountsTobeUpdated.add(updateAccount);
+    }
+    if(!accountsTobeUpdated.isEmpty()){
+        update accountsTobeUpdated;   
+    }
+
+  }
 }
