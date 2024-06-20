@@ -69,4 +69,41 @@ public with sharing class OpportunityTriggerHandler {
     public static void createOpportunityContactRole(List<Opportunity> oppList,Map<Id,Opportunity> oldOppMap){
 
     }
+
+    /*
+    Write a trigger to update account and contact status to active when the opportunity stage is closed won
+    */
+    public static void updateAccountAndContact(List<Opportunity> oppList,Map<Id,Opportunity>oldMapOpp){
+      Set<Id> accIds=new Set<Id>();
+      List<Account> accountsToBeUpdate = new List<Account>();
+      List<Contact> contactsToBeUpdate = new List<Contact>();
+      if(!oppList.isEmpty()){
+        for(Opportunity opp:oppList){
+          if(opp.StageName == 'Closed Won' && opp.StageName != oldMapOpp.get(opp.Id).StageName){
+            accIds.add(opp.AccountId);
+          }
+        }
+      }
+      if(!accIds.isEmpty()){
+        for(Account acc:[SELECT id,Name,Status__c ,(select Id,Name FROM Contacts) FROM Account WHERE Id In:accIds]){
+          Account updateAccount = new Account();
+          updateAccount.Id = acc.Id;
+          updateAccount.Status__c = 'Active';
+          accountsToBeUpdate.add(updateAccount);
+          for(Contact con : acc.Contacts){
+            Contact updateCon = new Contact();
+            updateCon.Id = con.Id;
+            updateCon.Status__c = 'Active';
+            contactsToBeUpdate.add(updateCon);
+          }
+        }
+      }
+      if(!accountsToBeUpdate.isEmpty()){
+        update accountsToBeUpdate;
+      }
+      if(!contactsToBeUpdate.isEmpty()){
+        update contactsToBeUpdate;
+      }
+    }
+
 }

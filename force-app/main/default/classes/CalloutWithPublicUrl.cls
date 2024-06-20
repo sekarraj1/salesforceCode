@@ -16,6 +16,7 @@ public with sharing class CalloutWithPublicUrl {
           system.debug(an);
         }
       }
+      return 'success';
     }
 /*
   Write a callout apex class and parse the response using Wrapper class in salesforce.
@@ -33,5 +34,23 @@ public with sharing class CalloutWithPublicUrl {
           system.debug(an);
         }
       }
+      return 'success';
+    }
+
+    /*
+    Get the country list - https://api.first.org/data/v1/countries
+    */
+    @AuraEnabled
+    public static String getCountryList(){
+      String resBody;
+      Http h = new Http();
+      HttpRequest req = new HttpRequest();
+      req.setEndpoint('https://api.first.org/data/v1/countries');
+      req.setMethod('GET');
+      HttpResponse res = h.send(req);
+      if(res.getStatusCode() == 200){
+        resBody = res.getBody();
+      }
+      return resBody;
     }
 }

@@ -1,0 +1,27 @@
+.bgrColor{
+  background-color: red;
+
+}
+.slds-box {
+  background-color: red;
+}
+
+.slds-accordion__summary-action {
+  display: inline-flex;
+  flex-grow: 1;
+  align-items: center;
+  min-width: 0;
+  background-color: red;
+  margin-top: calc(var(--slds-c-accordion-section-spacing-block-start, var(--sds-c-accordion-section-spacing-block-start, var(--lwc-spacingSmall, 0.75rem)))* -1);
+  margin-right: calc(var(--slds-c-accordion-section-spacing-inline-end, var(--sds-c-accordion-section-spacing-inline-end, var(--lwc-spacingSmall, 0.75rem)))* -1);
+  margin-bottom: calc(var(--slds-c-accordion-section-spacing-block-end, var(--sds-c-accordion-section-spacing-block-end, var(--lwc-spacingSmall, 0.75rem)))* -1);
+  margin-left: calc(var(--slds-c-accordion-section-spacing-inline-start, var(--sds-c-accordion-section-spacing-inline-start, var(--lwc-spacingSmall, 0.75rem)))* -1);
+  padding-top: var(--slds-c-accordion-section-spacing-block-start, var(--sds-c-accordion-section-spacing-block-start, var(--lwc-spacingSmall, 0.75rem)));
+  padding-right: var(--slds-c-accordion-section-spacing-inline-end, var(--sds-c-accordion-section-spacing-inline-end, var(--lwc-spacingSmall, 0.75rem)));
+  padding-bottom: var(--slds-c-accordion-section-spacing-block-end, var(--sds-c-accordion-section-spacing-block-end, var(--lwc-spacingSmall, 0.75rem)));
+  padding-left: var(--slds-c-accordion-section-spacing-inline-start, var(--sds-c-accordion-section-spacing-inline-start, var(--lwc-spacingSmall, 0.75rem)));
+}
+
+.slds-box {
+  --sds-c-accordion-summary-color-background: red;
+}

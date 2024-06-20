@@ -1,0 +1,7 @@
+<template>
+  <template for:each={cdata1} for:item="item">
+    <lightning-accordion section-title={item.name} onsectionclick={handleClick} >
+        <lightning-data-table data={item.cdata1} columns={columns} key={item.id}></lightning-data-table>
+    </lightning-accordion>
+  </template>
+</template>
