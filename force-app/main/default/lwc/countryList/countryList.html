@@ -1,5 +1,5 @@
 <template>
-  <div if:true={showDataTable}>
+  <!-- <div if:true={showDataTable}>
     <lightning-datatable
     key-field="id"
     data={tableData}
@@ -8,6 +8,16 @@
     
   >
   </lightning-datatable>
+  </div> -->
+
+  <div if:true={showassesData}>
+    <lightning-datatable
+    key-field="id"
+    data={assesData}
+    columns={columns1}
+    hide-checkbox-column
+    
+  >
+  </lightning-datatable>
   </div>
- 
 </template>
