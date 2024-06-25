@@ -36,6 +36,17 @@
 15. Write an apex trigger to prevent deactivation of account with active contacts on it 
 **(AccountTriggerHandler.activeAccountValidation)**
 
+16. Create a Rollup-Summary trigger in Salesforce - Update the number contacts on the account object
+**(ContactTriggerHandler.updateNumberOfContactsOnAccount)**
+
+17. Write a trigger to update the total opportunities amount based on the status on account when opportunity creation and updation.
+
+18. Write a trigger to update account and contact status to active when the opportunity stage is closed won **(OpportunityTriggerHandler.updateAccountAndContact)**
+
+19. Write a trigger to update the the number of opportunityLineItem on account when opportunityLineItem creation /updation / deletion **(OpportunityLineItemHandler.updateCountOnAccount)**
+
+20. 
+
 
 ---------------------------------------------------------------------------------------------------------------------
 
