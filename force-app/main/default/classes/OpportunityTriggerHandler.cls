@@ -106,4 +106,42 @@ public with sharing class OpportunityTriggerHandler {
       }
     }
 
+    /*
+    Write a trigger to update the Parent Account's Description field with the Second Highest Amount from Related Opportunities.
+    */
+    public static void updateAccountWithSecondHighestOppAmt(List<Opportunity> oppList, Map<Id,Opportunity> oldMapOpp){
+
+      Set<Id> accIds = new Set<Id>();
+      List<Account> accToBeUpdated = new List<Account>();
+      if(!oppList.isEmpty()){
+        for(Opportunity opp: oppList){
+          accIds.add(opp.AccountId);
+        }
+      }
+      if(!accIds.isEmpty()){
+        List<Account> accList = [SELECT ID,Name,(Select id,Amount From Opportunities) FROM Account WHERE Id IN:accIds];
+        for(Account acc:accList){
+          Decimal highestAmount = 0;
+          Decimal secondHighestAmt = 0;
+          Account accUpdate = new Account();
+          accUpdate.Id = acc.Id;
+          for(Opportunity accOpp: acc.Opportunities){
+            if(accOpp.Amount > highestAmount){
+              secondHighestAmt = highestAmount;
+              highestAmount = accOpp.Amount;
+            } else if(accOpp.Amount > secondHighestAmt && accOpp.Amount < highestAmount){
+              secondHighestAmt = accOpp.Amount;
+            }
+          }
+          accUpdate.Description = secondHighestAmt;
+          accToBeUpdated.add(accUpdate);
+
+        }
+      }
+      if(!accToBeUpdated.isEmpty()){
+        update accToBeUpdated;
+      }
+
+    }
+
 }

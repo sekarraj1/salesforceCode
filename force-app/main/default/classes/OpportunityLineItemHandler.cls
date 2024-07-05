@@ -3,9 +3,10 @@ public with sharing class OpportunityLineItemHandler {
       Map<Id,Integer> accVsOppLineMap = new Map<Id,Integer>();
       List<Account> accListToBeUpdated = new List<Account>();
       if(!accIds.isEmpty()){
-        List<AggregateResult> aggrRes = [SELECT count(id)cnt, Opporunity.AccountId
+        List<AggregateResult> aggrRes = [ SELECT count(id)cnt, Opporunity.AccountId
                                           FROM OpportunityLineItem WHERE Opporunity.AccountId IN:accIds
                                           GROUP BY Opporunity.AccountId];
+        // 100 opportunityLineItem on 1 Oppoertunity and 5000 opportunity on 1 account - Limits exception
         for(AggregateResult ag:aggrRes){
           accVsOppLineMap.put((Id)ag.get(Opporunity.AccountId),(Integer)ag.get('cnt'));
         }

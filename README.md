@@ -45,7 +45,7 @@
 
 19. Write a trigger to update the the number of opportunityLineItem on account when opportunityLineItem creation /updation / deletion **(OpportunityLineItemHandler.updateCountOnAccount)**
 
-20. 
+20. Write a trigger to update the Parent Account's Description field with the Second Highest Amount from Related Opportunities.
 
 
 ---------------------------------------------------------------------------------------------------------------------
@@ -59,5 +59,21 @@
 
 2.  Write a callout apex class and parse the response using Wrapper class in salesforce 
     **(CalloutWithPublicUrl.getPublicInformationUsingWrapperClass)**
+---------------------------------------------------------------------------------------------------------------------
 
+**JavaScript**
+
+---------------------------------------------------------------------------------------------------------------------
+1. Count the number of each fruits in the given array.
+
+    const fruitArray = ['Orange','Apple','Orange','Orange','Apple'];
+    const fruitCount = {};
+    fruitArray.forEach((fruit)=>{
+        if(fruitCount[fruit]){
+            fruitCount[fruit] +=1;
+        }else{
+            fruitCount[fruit] =1;
+        }
+    })
+    console.log("fruitCount"+JSON.stringify(fruitCount));
 
